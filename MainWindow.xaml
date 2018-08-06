@@ -8,7 +8,7 @@
         xmlns:conv="clr-namespace:Agenda.Assets.Convert"
         xmlns:root="clr-namespace:Agenda"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Google Contacts Wpf Demo" Height="600" Width="800">
 
     <Window.DataContext>
         <vm:MainWindowViewModel></vm:MainWindowViewModel>
@@ -36,9 +36,6 @@
 
             <ContentControl Content="{StaticResource IconMenu}" />
             
-            
-            
-            <TextBlock Foreground="{StaticResource NavBarForetextBrush}" VerticalAlignment="Center" FontFamily="Product Sans" FontSize="24" >...</TextBlock>
             <TextBlock Foreground="{StaticResource NavBarForetextBrush}" VerticalAlignment="Center" FontFamily="Product Sans" FontSize="24" >Google Contatti</TextBlock>
 
         </StackPanel>
@@ -60,8 +57,8 @@
             Width="220">
                 <StackPanel Margin="5" Orientation="Horizontal">
 
-                    <Image Source="C:\Users\franc\OneDrive\Documenti\Lavoro\Windows\WpfAgenda\Agenda\Assets\Images\IconFind.png"  Height="18"/>
-
+                    <ContentControl Content="{StaticResource IconSearch}" />
+                    
                     <TextBox
                     Name="txtNameToSearch" 
                     Text="{Binding Path=SearchText,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -69,8 +66,6 @@
                     Width="200"
                     BorderThickness="0"
                     Style="{StaticResource SearchBoxStyle}"/>
-
-
                 </StackPanel>
             </Border>
 
@@ -87,7 +82,7 @@
             <ListBox  
                 HorizontalContentAlignment="Stretch"
                 Name="lstEmpData"     
-                ItemsSource="{Binding Path=lstEmployeeSearch}">
+                ItemsSource="{Binding Path=ContactsSearch}">
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>

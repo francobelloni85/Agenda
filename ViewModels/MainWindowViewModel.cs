@@ -1,5 +1,6 @@
 ﻿using Agenda.Models;
 using Agenda.ViewModels.Base;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Agenda.ViewModels
@@ -7,8 +8,10 @@ namespace Agenda.ViewModels
     public class MainWindowViewModel : NotifyPropertyBase
     {
 
-        public ObservableCollection<Person> lstEmployee { get; set; } = new ObservableCollection<Person>();
-        public ObservableCollection<Person> lstEmployeeSearch { get; set; } = new ObservableCollection<Person>();
+        public List<Person> Contacts { get; set; } = new List<Person>();
+        public ObservableCollection<Person> ContactsSearch { get; set; } = new ObservableCollection<Person>();
+        public ObservableCollection<Person> ContactsSelected { get; set; } = new ObservableCollection<Person>();
+
 
         private string searchText;
         public string SearchText {
@@ -23,43 +26,58 @@ namespace Agenda.ViewModels
         // http://www.devcurry.com/2010/07/filter-data-in-wpf-listbox.html
         private void SearchResult()
         {
-
-            string txtOrig = SearchText;
-            string upper = txtOrig.ToUpper();
-            string lower = txtOrig.ToLower();
-
-            lstEmployeeSearch.Clear();
-
-
-            foreach (Person t in lstEmployee)
+            ContactsSearch.Clear();            
+            foreach (Person t in Contacts)
             {
-
-                if (t.Name.Contains(SearchText) == true)
+                if (t.FullName.ToLower().Contains(SearchText.ToLower()) == true)
                 {
-                    lstEmployeeSearch.Add(t);
+                    ContactsSearch.Add(t);
                     NotifyPropertyChanged("lstEmployeeSearch");
                 }
-
             }
-
-            string de = "";
         }
 
 
         public MainWindowViewModel()
         {
-            lstEmployee.Add(new Person() {  Id = 1001, Name = "Mahesh", Surname="Lux", Color="00dd11", Number="+39 345.2579141" });
-            lstEmployee.Add(new Person() { Id = 1002, Name = "Amit", Surname = "Belloni", Color = "00dd11", Number = "+39 345.1235541" });
-            lstEmployee.Add(new Person() { Id = 1003, Name = "Vaibhav", Surname = "Lora", Color = "00dd11", Number = "+39 345.5242341" });
-            lstEmployee.Add(new Person() { Id = 1004, Name = "Ashwin", Surname = "Malnati", Color = "00dd11", Number = "+39 345.2552231" });
-            lstEmployee.Add(new Person() { Id = 1005, Name = "Prashant", Surname = "Poretti", Color = "00dd11", Number = "+39 345.2525321" });
-            lstEmployee.Add(new Person() { Id = 1006, Name = "Vinit", Surname = "Coccè", Color = "00dd11", Number = "+39 345.2243541" });
-            lstEmployee.Add(new Person() { Id = 1007, Name = "Abhijit", Surname = "Valente", Color = "00dd11", Number = "+39 345.1123124" });
-            lstEmployee.Add(new Person() { Id = 1008, Name = "Pankaj", Surname = "Oliviero", Color = "00dd11", Number = "+39 345.2142124" });
-            lstEmployee.Add(new Person() { Id = 1009, Name = "Kaustubh", Surname = "Vanoni", Color = "00dd11", Number = "+39 345.2414241" });
-            lstEmployee.Add(new Person() { Id = 1010, Name = "Mohan", Surname = "Atabiano", Color = "00dd11", Number = "+39 345.1241241" });
 
+            AddContactToListCommand = new Command(AddContactToListCommandExecute,CanAddContactToListCommandCommand);
+
+            Contacts.Add(new Person() {  Id = 1001, Name = "Mahesh", Surname="Lux", Color="00dd11", Number="+39 345.2579141" });
+            Contacts.Add(new Person() { Id = 1002, Name = "Amit", Surname = "Belloni", Color = "00dd11", Number = "+39 345.1235541" });
+            Contacts.Add(new Person() { Id = 1003, Name = "Vaibhav", Surname = "Lora", Color = "00dd11", Number = "+39 345.5242341" });
+            Contacts.Add(new Person() { Id = 1004, Name = "Ashwin", Surname = "Malnati", Color = "00dd11", Number = "+39 345.2552231" });
+            Contacts.Add(new Person() { Id = 1005, Name = "Prashant", Surname = "Poretti", Color = "00dd11", Number = "+39 345.2525321" });
+            Contacts.Add(new Person() { Id = 1006, Name = "Vinit", Surname = "Coccè", Color = "00dd11", Number = "+39 345.2243541" });
+            Contacts.Add(new Person() { Id = 1007, Name = "Abhijit", Surname = "Valente", Color = "00dd11", Number = "+39 345.1123124" });
+            Contacts.Add(new Person() { Id = 1008, Name = "Pankaj", Surname = "Oliviero", Color = "00dd11", Number = "+39 345.2142124" });
+            Contacts.Add(new Person() { Id = 1009, Name = "Kaustubh", Surname = "Vanoni", Color = "00dd11", Number = "+39 345.2414241" });
+            Contacts.Add(new Person() { Id = 1010, Name = "Mohan", Surname = "Atabiano", Color = "00dd11", Number = "+39 345.1241241" });
+            foreach (Person t in Contacts) {
+                ContactsSearch.Add(t);
+            }
         }
+
+
+        #region AddContactToList Command   
+
+        public Command AddContactToListCommand {
+            get;
+            private set;
+        }
+
+        private void AddContactToListCommandExecute(object obj)
+        {
+            string x = "2";
+        }
+
+        private bool CanAddContactToListCommandCommand(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
 
 
 

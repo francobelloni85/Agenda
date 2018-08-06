@@ -57,6 +57,7 @@
     <Compile Include="Assets\Convert\SearchBoxToColorConverter.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SearchBox.cs" />
+    <Compile Include="ViewModels\Base\Command.cs" />
     <Compile Include="ViewModels\ContactListItemViewModel.cs" />
     <Compile Include="ViewModels\ContactListViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
