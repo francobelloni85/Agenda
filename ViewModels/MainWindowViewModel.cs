@@ -43,7 +43,7 @@ namespace Agenda.ViewModels
 
             AddContactToListCommand = new Command(AddContactToListCommandExecute,CanAddContactToListCommandCommand);
 
-            Contacts.Add(new Person() {  Id = 1001, Name = "Mahesh", Surname="Lux", Color="00dd11", Number="+39 345.2579141" });
+            Contacts.Add(new Person() {  Id = 1001, Name = "Mahesh", Surname="Lux", Color="00dd11", Number="+39 345.1549141" });
             Contacts.Add(new Person() { Id = 1002, Name = "Amit", Surname = "Belloni", Color = "00dd11", Number = "+39 345.1235541" });
             Contacts.Add(new Person() { Id = 1003, Name = "Vaibhav", Surname = "Lora", Color = "00dd11", Number = "+39 345.5242341" });
             Contacts.Add(new Person() { Id = 1004, Name = "Ashwin", Surname = "Malnati", Color = "00dd11", Number = "+39 345.2552231" });
@@ -53,9 +53,12 @@ namespace Agenda.ViewModels
             Contacts.Add(new Person() { Id = 1008, Name = "Pankaj", Surname = "Oliviero", Color = "00dd11", Number = "+39 345.2142124" });
             Contacts.Add(new Person() { Id = 1009, Name = "Kaustubh", Surname = "Vanoni", Color = "00dd11", Number = "+39 345.2414241" });
             Contacts.Add(new Person() { Id = 1010, Name = "Mohan", Surname = "Atabiano", Color = "00dd11", Number = "+39 345.1241241" });
+
             foreach (Person t in Contacts) {
                 ContactsSearch.Add(t);
             }
+
+
         }
 
 
@@ -68,7 +71,15 @@ namespace Agenda.ViewModels
 
         private void AddContactToListCommandExecute(object obj)
         {
-            string x = "2";
+            Person t = (Person)obj;
+            if (ContactsSelected.Contains(t) == false) {
+                ContactsSelected.Add(t);
+            }
+            else {
+                ContactsSelected.Remove(t);
+            }
+
+            NotifyPropertyChanged("ContactsSelected");
         }
 
         private bool CanAddContactToListCommandCommand(object obj)
@@ -78,6 +89,25 @@ namespace Agenda.ViewModels
 
         #endregion
 
+        #region AddContactToList Command   
+
+        public Command RemoveAllContactToListCommand {
+            get;
+            private set;
+        }
+
+        private void RemoveAllContactToListCommandExecute(object obj)
+        {
+            ContactsSelected.Clear();
+            NotifyPropertyChanged("ContactsSelected");
+        }
+
+        private bool CanRemoveAllContactToListCommandCommand(object obj)
+        {
+            return true;
+        }
+
+        #endregion
 
 
 

@@ -63,8 +63,8 @@
         <!--CheckBox-->
         <CheckBox 
             Grid.Column="1"
-            Command="{Binding AddContactToListCommand, Mode=TwoWay}"
-            CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
+            Command="{Binding DataContext.AddContactToListCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"                    
+            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}"
             Style="{DynamicResource checkBox}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"/>

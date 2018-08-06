@@ -7,20 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600">
     <Grid Background="White">
-        
         <ScrollViewer  VerticalScrollBarVisibility="Auto">
             <ListBox >
-
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:ContactListItemControl></local:ContactListItemControl>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-
             </ListBox>
-
         </ScrollViewer>
-        
-            
     </Grid>
 </UserControl>

@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assets\Convert\ListToVisibilityConverter.cs" />
     <Compile Include="Assets\Convert\SearchBoxToColorConverter.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SearchBox.cs" />
@@ -143,7 +144,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Varie.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\IconFind.png" />
   </ItemGroup>

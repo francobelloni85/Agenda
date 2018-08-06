@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Agenda.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,19 +11,20 @@ using System.Windows.Media;
 namespace Agenda.Assets.Convert
 {
 
-    public class SearchBoxToColorConverter : IValueConverter
+    public class ListToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             
             if (value != null)
             {
-                if (string.IsNullOrEmpty(value.ToString()) == false) {
-                    return System.Windows.Media.Colors.Green;
+                ObservableCollection<Person> t = (ObservableCollection<Person>)value;
+                if (t.Count>0) {
+                    return System.Windows.Visibility.Visible;
                 }
             }
 
-            return Colors.Red;
+            return System.Windows.Visibility.Hidden;
 
             //return (SolidColorBrush)(new BrushConverter().ConvertFrom($"#{value}"));
 
