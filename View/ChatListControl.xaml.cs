@@ -13,24 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Agenda
+namespace Agenda.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ChatListControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ChatListControl : UserControl
     {
-        public MainWindow()
+        public ChatListControl()
         {
             InitializeComponent();
-            this.FontFamily = new FontFamily("Product Sans");
         }
-
-
-
-
-
-
-
     }
 }

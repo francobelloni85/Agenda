@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Agenda.Assets.ResourceDictionaries">
+
+    <!--https://materialdesignicons.com/-->
+    <!--https://stackoverflow.com/questions/43512657/how-to-add-personal-icons-in-materialdesigninxamltoolkit-->
+    
+    <Canvas x:Key="IconArrowDonw" x:Shared="False" Width="24" Height="24">
+        <Path Data="M9,4H15V12H19.84L12,19.84L4.16,12H9V4Z" Fill="Red" />
+    </Canvas>
+
+    <Canvas x:Key="IconMenu" 
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    Width="24" 
+                    Height="24">
+        <Path Data="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" Fill="White" />
+    </Canvas>
+    
+
+</ResourceDictionary>

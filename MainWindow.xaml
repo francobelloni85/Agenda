@@ -3,10 +3,130 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Agenda"
+        xmlns:vm="clr-namespace:Agenda.ViewModels"
+        xmlns:local="clr-namespace:Agenda.View"
+        xmlns:conv="clr-namespace:Agenda.Assets.Convert"
+        xmlns:root="clr-namespace:Agenda"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <conv:SearchBoxToColorConverter x:Key="SearchBoxToColorConv"></conv:SearchBoxToColorConverter>
+    </Window.Resources>
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <!--NavBar Menu icon -->
+        <StackPanel Grid.Column="0" Grid.Row="0"
+                    Grid.ColumnSpan="2" 
+                    Orientation="Horizontal" 
+                    Background="{StaticResource NavBarBackgroundBrush}">
+
+            <ContentControl Content="{StaticResource IconMenu}" />
+            
+            
+            
+            <TextBlock Foreground="{StaticResource NavBarForetextBrush}" VerticalAlignment="Center" FontFamily="Product Sans" FontSize="24" >...</TextBlock>
+            <TextBlock Foreground="{StaticResource NavBarForetextBrush}" VerticalAlignment="Center" FontFamily="Product Sans" FontSize="24" >Google Contatti</TextBlock>
+
+        </StackPanel>
+
+        <!--NavBar Search Textbox -->
+        <StackPanel 
+            Grid.Column="1"
+            Orientation="Vertical" 
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Margin="10 0">
+
+            <!--Background="{Binding SearchText, Converter={StaticResource SearchBoxToColorConv}}"-->
+            <Border                      
+            Background="White"
+            BorderThickness="2"
+            VerticalAlignment="Center"
+            CornerRadius="5"
+            Width="220">
+                <StackPanel Margin="5" Orientation="Horizontal">
+
+                    <Image Source="C:\Users\franc\OneDrive\Documenti\Lavoro\Windows\WpfAgenda\Agenda\Assets\Images\IconFind.png"  Height="18"/>
+
+                    <TextBox
+                    Name="txtNameToSearch" 
+                    Text="{Binding Path=SearchText,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Height="20"
+                    Width="200"
+                    BorderThickness="0"
+                    Style="{StaticResource SearchBoxStyle}"/>
+
+
+                </StackPanel>
+            </Border>
+
+
+
+
+
+        </StackPanel>
+
+        <!--Content -->
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1">
+
+            <ListBox  
+                HorizontalContentAlignment="Stretch"
+                Name="lstEmpData"     
+                ItemsSource="{Binding Path=lstEmployeeSearch}">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:ContactListItemControl></local:ContactListItemControl>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Background="{StaticResource NavBarSelectedItemBackgroundBrush}"
+                    Visibility="Hidden">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center">Indietro</Label>
+                </StackPanel>
+                
+                
+            </Grid>
+            
+            
+        </StackPanel>
+        
         
     </Grid>
+
+
+
 </Window>
+
+

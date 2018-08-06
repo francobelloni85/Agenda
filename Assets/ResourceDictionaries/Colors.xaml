@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Agenda.Assets.ResourceDictionaries">
+
+
+    <Color x:Key="NavBarBackground">#2a56c6</Color>
+    <SolidColorBrush x:Key="NavBarBackgroundBrush" Color="{StaticResource NavBarBackground}"></SolidColorBrush>
+
+    <Color x:Key="NavBarForetext">#ffffff</Color>
+    <SolidColorBrush x:Key="NavBarForetextBrush" Color="{StaticResource NavBarForetext}"></SolidColorBrush>
+
+    <Color x:Key="SearchBoxNotSelected">#4c71cf</Color>
+    <SolidColorBrush x:Key="SearchBoxNotSelectedBrush" Color="{StaticResource SearchBoxNotSelected}"></SolidColorBrush>
+
+    <Color x:Key="SearchBoxTextNotSelected">#8ba3de</Color>
+    <SolidColorBrush x:Key="SearchBoxTextNotSelectedBrush" Color="{StaticResource SearchBoxTextNotSelected}"></SolidColorBrush>
+
+    <Color x:Key="NavBarSelectedItemBackground">#e1f5fe</Color>
+    <SolidColorBrush x:Key="NavBarSelectedItemBackgroundBrush" Color="{StaticResource NavBarSelectedItemBackground}"></SolidColorBrush>
+
+    <Color x:Key="ContactSelectedMouseOverBackground">#f5f5f5</Color>
+    <SolidColorBrush x:Key="ContactSelectedMouseOverBackgroundBrush" Color="{StaticResource ContactSelectedMouseOverBackground}"></SolidColorBrush>
+    
+</ResourceDictionary>
