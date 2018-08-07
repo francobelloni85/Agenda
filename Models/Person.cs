@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Agenda.Models
 {
-    public class Person
+    public class Person : ViewModels.Base.NotifyPropertyBase
     {
         private int id;
         public int Id;
@@ -36,7 +36,7 @@ namespace Agenda.Models
             }
 
         }
-        
+
         public string FullName {
             get { return this.name + " " + this.surname; }
         }
@@ -70,10 +70,22 @@ namespace Agenda.Models
             }
 
         }
-        
 
+        private bool isChecked;
+        public bool IsChecked {
+            get {
+                return isChecked;
+            }
 
-
+            set {
+                this.isChecked = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("IsChecked");
+                NotifyPropertyChanged("ContactsSearch");
+            }
+        }
 
     }
+    
+
 }

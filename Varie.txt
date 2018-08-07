@@ -39,3 +39,24 @@
                             </Border>
 
                         </Grid>
+
+
+
+
+
+CheckBox
+
+<CheckBox 
+            Grid.Column="1"
+            Command="{Binding DataContext.AddContactToListCommand,
+                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}},
+                        Mode=TwoWay}"                    
+            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}"
+            IsChecked="{
+                        Binding Path=DataContext,
+                        Mode=TwoWay,
+                        Converter={StaticResource PersonToBoolConv},
+                        RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListBoxItem}}
+            }"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>

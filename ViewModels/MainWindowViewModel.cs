@@ -2,6 +2,7 @@
 using Agenda.ViewModels.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Agenda.ViewModels
 {
@@ -42,8 +43,15 @@ namespace Agenda.ViewModels
         {
 
             AddContactToListCommand = new Command(AddContactToListCommandExecute,CanAddContactToListCommandCommand);
+            ClearContactListCommand = new Command(ClearContactListExecute, CanClearContactListCommand);
+            TestCommand = new Command(TestCommandExecute, CanTestCommandCommand);
 
-            Contacts.Add(new Person() {  Id = 1001, Name = "Mahesh", Surname="Lux", Color="00dd11", Number="+39 345.1549141" });
+            LoadContacts();
+        }
+
+        private void LoadContacts() {
+
+            Contacts.Add(new Person() { Id = 1001, Name = "Mahesh", Surname = "Lux", Color = "00dd11", Number = "+39 345.1549141" });
             Contacts.Add(new Person() { Id = 1002, Name = "Amit", Surname = "Belloni", Color = "00dd11", Number = "+39 345.1235541" });
             Contacts.Add(new Person() { Id = 1003, Name = "Vaibhav", Surname = "Lora", Color = "00dd11", Number = "+39 345.5242341" });
             Contacts.Add(new Person() { Id = 1004, Name = "Ashwin", Surname = "Malnati", Color = "00dd11", Number = "+39 345.2552231" });
@@ -54,11 +62,10 @@ namespace Agenda.ViewModels
             Contacts.Add(new Person() { Id = 1009, Name = "Kaustubh", Surname = "Vanoni", Color = "00dd11", Number = "+39 345.2414241" });
             Contacts.Add(new Person() { Id = 1010, Name = "Mohan", Surname = "Atabiano", Color = "00dd11", Number = "+39 345.1241241" });
 
-            foreach (Person t in Contacts) {
+            foreach (Person t in Contacts)
+            {
                 ContactsSearch.Add(t);
             }
-
-
         }
 
 
@@ -66,7 +73,8 @@ namespace Agenda.ViewModels
 
         public Command AddContactToListCommand {
             get;
-            private set;
+            //private set;
+            set;
         }
 
         private void AddContactToListCommandExecute(object obj)
@@ -78,8 +86,8 @@ namespace Agenda.ViewModels
             else {
                 ContactsSelected.Remove(t);
             }
-
             NotifyPropertyChanged("ContactsSelected");
+            ClearContactListCommand.RaiseCanExecuteChange();
         }
 
         private bool CanAddContactToListCommandCommand(object obj)
@@ -88,28 +96,83 @@ namespace Agenda.ViewModels
         }
 
         #endregion
+        
+        #region ClearContactList Command   
 
-        #region AddContactToList Command   
-
-        public Command RemoveAllContactToListCommand {
+        public Command ClearContactListCommand {
             get;
             private set;
         }
 
-        private void RemoveAllContactToListCommandExecute(object obj)
+        private void ClearContactListExecute(object obj)
         {
-            ContactsSelected.Clear();
-            NotifyPropertyChanged("ContactsSelected");
+            try
+            {
+                string de = "";
+                foreach (Person t in ContactsSelected) {
+                    t.IsChecked = false;
+                    t.Name = "Funziona?";
+                    NotifyPropertyChanged("ContactsSelected");
+                }
+                ContactsSelected.Clear();
+                NotifyPropertyChanged("ContactsSelected");
+            }
+            catch(System.Exception err) {
+                string e = "";
+            }
         }
 
-        private bool CanRemoveAllContactToListCommandCommand(object obj)
+        private bool CanClearContactListCommand(object obj)
         {
-            return true;
+            if (ContactsSelected.Count > 0) {
+                return true;
+            }
+            return false;
+
         }
 
         #endregion
 
+        #region ClearContactList Command   
 
+        public Command TestCommand {
+            get;
+            private set;
+        }
 
+        private void TestCommandExecute(object obj)
+        {
+            try
+            {
+                string de = "";
+                for (int i =0; i< ContactsSearch.Count;i++)
+                {
+                    Person t = ContactsSearch[i];
+                    t.IsChecked = false;
+                    t.Name = "Funziona?";
+                    NotifyPropertyChanged("ContactsSearch");
+                }
+                ContactsSelected.Clear();
+                NotifyPropertyChanged("ContactsSelected");
+            }
+            catch (System.Exception err)
+            {
+                string e = "";
+            }
+        }
+
+        private bool CanTestCommandCommand(object obj)
+        {
+            return true;
+
+            //if (ContactsSelected.Count > 0)
+            //{
+            //    return true;
+            //}
+            //return false;
+
+        }
+
+        #endregion
     }
 }

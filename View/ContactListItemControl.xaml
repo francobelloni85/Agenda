@@ -3,18 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:Agenda.Assets.Convert"
              xmlns:local="clr-namespace:Agenda.View"
              mc:Ignorable="d" 
              Height="40"
              Width="auto"
              d:DesignHeight="40" d:DesignWidth="300">
+<UserControl.Resources>
+        
+        <!--<Style TargetType="{x:Type CheckBox}" x:Key="checkBox">
 
-
-    <UserControl.Resources>
-
-        <Style TargetType="{x:Type CheckBox}" x:Key="checkBox">
-
-            <!-- This part changes the colors -->
+            --><!-- This part changes the colors --><!--
             <Setter Property="BorderBrush" Value="LightGray" />
             <Setter Property="BorderThickness" Value="3" />
             <Setter Property="Background" Value="LightGray" />
@@ -23,7 +22,7 @@
 
                 <Trigger Property="IsMouseOver" Value="True">
 
-                    <!-- This part is not changing the colors -->
+                    --><!-- This part is not changing the colors --><!--
                     <Setter Property="BorderThickness" Value="3" />
                     <Setter Property="Background" Value="Gray" />
                     <Setter Property="BorderBrush" Value="Gray" />
@@ -32,7 +31,7 @@
 
             </Style.Triggers>
 
-        </Style>
+        </Style>-->
 
         <Style TargetType="{x:Type Grid}" x:Key="GridRow">
             <!-- This part changes the colors -->
@@ -58,14 +57,18 @@
         </Grid.ColumnDefinitions>
 
         <!--Selected item-->
-        <Border Background="Red" Width="5"></Border>
+        <Border Background="Red" Width="0"></Border>
+
 
         <!--CheckBox-->
+        <!--https://stackoverflow.com/questions/26681749/c-sharp-wpf-uncheck-checkboxes-->
+        <!--Style="{DynamicResource checkBox}"-->
         <CheckBox 
-            Grid.Column="1"
-            Command="{Binding DataContext.AddContactToListCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"                    
-            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}"
-            Style="{DynamicResource checkBox}"
+            Grid.Column="1"           
+            Command="{Binding DataContext.AddContactToListCommand,
+                      RelativeSource={RelativeSource Self},
+                      Mode=TwoWay}"                    
+            IsChecked="{Binding Path=IsChecked}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"/>
 

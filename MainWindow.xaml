@@ -18,7 +18,7 @@
 
         <conv:SearchBoxToColorConverter x:Key="SearchBoxToColorConv"></conv:SearchBoxToColorConverter>
         <conv:ListToVisibilityConverter x:Key="ListToVisibilityConv"></conv:ListToVisibilityConverter>
-        
+
         <Style TargetType="{x:Type CheckBox}" x:Key="checkBox">
 
             <!-- This part changes the colors -->
@@ -115,15 +115,89 @@
             <ListBox  
                 HorizontalContentAlignment="Stretch"
                 Name="lstEmpData"     
-                ItemsSource="{Binding Path=ContactsSearch}">
+                ItemsSource="{Binding Path=ContactsSearch, Mode=TwoWay}"
+                SelectedItem="{Binding Person}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:ContactListItemControl></local:ContactListItemControl>
+
+                        <Grid Style="{DynamicResource GridRow}">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <!--Selected item-->
+                            <Border Background="Red" Width="0"></Border>
+
+
+                            <!--CheckBox-->
+                            <!--https://stackoverflow.com/questions/26681749/c-sharp-wpf-uncheck-checkboxes-->
+                            <!--Style="{DynamicResource checkBox}"-->
+                            <CheckBox 
+                                Grid.Column="1"
+                                Command="{Binding DataContext.AddContactToListCommand,
+                                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}},
+                                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay
+                                }"                    
+                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}, Mode=TwoWay}"                   
+                                IsChecked="{Binding Path=IsChecked, Mode=TwoWay}"                             
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                            <!--Icons-->
+                            <Border Grid.Column="2" Padding="8">
+                                <Border 
+                                    Background="Orange"
+                                    Width="25"
+                                    CornerRadius="30">
+                                    <TextBlock 
+                                        Text="{Binding Initial}"
+                                        Foreground="Black"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                    </TextBlock>
+                                </Border>
+                            </Border>
+
+                            <!--Name-->
+                            <Border Grid.Column="3"
+                Padding="8 0 0 0">
+                                <TextBlock 
+                Text="{Binding Name, Mode=TwoWay}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                                </TextBlock>
+                            </Border>
+
+                            <!--Mobile Phone-->
+                            <Border Grid.Column="4"
+                Padding="0 0 8 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                                <TextBlock 
+                Text="{Binding Number}"></TextBlock>
+                            </Border>
+
+                        </Grid>
+
+
+
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button Command="{Binding TestCommand}">Test</Button>
+            
+        </StackPanel>
+        
+        
+        
         <!-- Select item -->
         <!--Visibility="{Binding Path=ContactsSelected, Converter={StaticResource ListToVisibilityConv}}"-->
         <StackPanel Grid.Row="0"
@@ -137,21 +211,38 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                
-                <StackPanel VerticalAlignment="Center" 
+
+                <StackPanel Height="60"
+                            VerticalAlignment="Center" 
                             HorizontalAlignment="Center"
                             Orientation="Horizontal" >
-                    <ContentControl Content="{StaticResource IconBack}" />
-                    <Label HorizontalAlignment="Center" VerticalAlignment="Center">Indietro</Label>
+
+                    <Button 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding Path=ClearContactListCommand}"
+                        Background="{DynamicResource NavBarSelectedItemBackgroundBrush}"
+                        BorderThickness="0"
+                        >
+
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <ContentControl
+                                Content="{StaticResource IconBack}"/>
+                                <Label>Indietro</Label>
+                            </StackPanel>
+                        </Button.Content>
+
+                    </Button>
                 </StackPanel>
 
                 <StackPanel 
                     Grid.Column="1"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=ContactsSelected.Count}"></Label>
                     <Label HorizontalAlignment="Left" VerticalAlignment="Center">contatto selezionato</Label>
                 </StackPanel>
-                
+
             </Grid>
         </StackPanel>
     </Grid>
