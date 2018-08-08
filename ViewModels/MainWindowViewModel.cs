@@ -1,20 +1,68 @@
-﻿using Agenda.Models;
-using Agenda.ViewModels.Base;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-
-namespace Agenda.ViewModels
+﻿namespace Agenda.ViewModels
 {
+    using Agenda.Models;
+    using Agenda.ViewModels.Base;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+
+    /// <summary>
+    /// Defines the <see cref="MainWindowViewModel" />
+    /// </summary>
     public class MainWindowViewModel : NotifyPropertyBase
     {
+        #region Fields
+
+        /// <summary>
+        /// Defines the searchText
+        /// </summary>
+        private string searchText;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
+        public MainWindowViewModel()
+        {
+
+            AddContactToListCommand = new Command(AddContactToListCommandExecute, CanAddContactToListCommandCommand);
+            ClearContactListCommand = new Command(ClearContactListExecute, CanClearContactListCommand);
+            TestCommand = new Command(TestCommandExecute, CanTestCommandCommand);
+
+            LoadContacts();
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the AddContactToListCommand
+        /// </summary>
+        public Command AddContactToListCommand { get; set; }
+
+        /// <summary>
+        /// Gets the ClearContactListCommand
+        /// </summary>
+        public Command ClearContactListCommand { get; private set; }
 
         public List<Person> Contacts { get; set; } = new List<Person>();
+
+        /// <summary>
+        /// Gets or sets the ContactsSearch
+        /// </summary>
         public ObservableCollection<Person> ContactsSearch { get; set; } = new ObservableCollection<Person>();
+
+        /// <summary>
+        /// Gets or sets the ContactsSelected
+        /// </summary>
         public ObservableCollection<Person> ContactsSelected { get; set; } = new ObservableCollection<Person>();
 
-
-        private string searchText;
+        /// <summary>
+        /// Gets or sets the SearchText
+        /// </summary>
         public string SearchText {
             get { return searchText; }
             set {
@@ -24,32 +72,95 @@ namespace Agenda.ViewModels
             }
         }
 
-        // http://www.devcurry.com/2010/07/filter-data-in-wpf-listbox.html
-        private void SearchResult()
+        /// <summary>
+        /// Gets the TestCommand
+        /// </summary>
+        public Command TestCommand { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The AddContactToListCommandExecute
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/></param>
+        private void AddContactToListCommandExecute(object obj)
         {
-            ContactsSearch.Clear();            
-            foreach (Person t in Contacts)
+            Person t = (Person)obj;
+            if (ContactsSelected.Contains(t) == false)
             {
-                if (t.FullName.ToLower().Contains(SearchText.ToLower()) == true)
+                ContactsSelected.Add(t);
+            }
+            else
+            {
+                ContactsSelected.Remove(t);
+            }
+            NotifyPropertyChanged("ContactsSelected");
+            ClearContactListCommand.RaiseCanExecuteChange();
+        }
+
+        /// <summary>
+        /// The CanAddContactToListCommandCommand
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/></param>
+        /// <returns>The <see cref="bool"/></returns>
+        private bool CanAddContactToListCommandCommand(object obj)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// The CanClearContactListCommand
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/></param>
+        /// <returns>The <see cref="bool"/></returns>
+        private bool CanClearContactListCommand(object obj)
+        {
+            if (ContactsSelected.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// The CanTestCommandCommand
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/></param>
+        /// <returns>The <see cref="bool"/></returns>
+        private bool CanTestCommandCommand(object obj)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// The ClearContactListExecute
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/></param>
+        private void ClearContactListExecute(object obj)
+        {
+            try
+            {
+                foreach (Person t in ContactsSelected)
                 {
-                    ContactsSearch.Add(t);
-                    NotifyPropertyChanged("lstEmployeeSearch");
+                    t.IsChecked = false;
+                    NotifyPropertyChanged("ContactsSelected");
                 }
+                ContactsSelected.Clear();
+                NotifyPropertyChanged("ContactsSelected");
+            }
+            catch (System.Exception err)
+            {
+                string e = "";
             }
         }
 
-
-        public MainWindowViewModel()
+        /// <summary>
+        /// The LoadContacts
+        /// </summary>
+        private void LoadContacts()
         {
-
-            AddContactToListCommand = new Command(AddContactToListCommandExecute,CanAddContactToListCommandCommand);
-            ClearContactListCommand = new Command(ClearContactListExecute, CanClearContactListCommand);
-            TestCommand = new Command(TestCommandExecute, CanTestCommandCommand);
-
-            LoadContacts();
-        }
-
-        private void LoadContacts() {
 
             Contacts.Add(new Person() { Id = 1001, Name = "Mahesh", Surname = "Lux", Color = "00dd11", Number = "+39 345.1549141" });
             Contacts.Add(new Person() { Id = 1002, Name = "Amit", Surname = "Belloni", Color = "00dd11", Number = "+39 345.1235541" });
@@ -68,92 +179,32 @@ namespace Agenda.ViewModels
             }
         }
 
-
-        #region AddContactToList Command   
-
-        public Command AddContactToListCommand {
-            get;
-            //private set;
-            set;
-        }
-
-        private void AddContactToListCommandExecute(object obj)
+        // http://www.devcurry.com/2010/07/filter-data-in-wpf-listbox.html
+        /// <summary>
+        /// The SearchResult
+        /// </summary>
+        private void SearchResult()
         {
-            Person t = (Person)obj;
-            if (ContactsSelected.Contains(t) == false) {
-                ContactsSelected.Add(t);
-            }
-            else {
-                ContactsSelected.Remove(t);
-            }
-            NotifyPropertyChanged("ContactsSelected");
-            ClearContactListCommand.RaiseCanExecuteChange();
-        }
-
-        private bool CanAddContactToListCommandCommand(object obj)
-        {
-            return true;
-        }
-
-        #endregion
-        
-        #region ClearContactList Command   
-
-        public Command ClearContactListCommand {
-            get;
-            private set;
-        }
-
-        private void ClearContactListExecute(object obj)
-        {
-            try
+            ContactsSearch.Clear();
+            foreach (Person t in Contacts)
             {
-                string de = "";
-                foreach (Person t in ContactsSelected) {
-                    t.IsChecked = false;
-                    t.Name = "Funziona?";
-                    NotifyPropertyChanged("ContactsSelected");
+                if (t.FullName.ToLower().Contains(SearchText.ToLower()) == true)
+                {
+                    ContactsSearch.Add(t);
+                    NotifyPropertyChanged("lstEmployeeSearch");
                 }
-                ContactsSelected.Clear();
-                NotifyPropertyChanged("ContactsSelected");
-            }
-            catch(System.Exception err) {
-                string e = "";
             }
         }
 
-        private bool CanClearContactListCommand(object obj)
-        {
-            if (ContactsSelected.Count > 0) {
-                return true;
-            }
-            return false;
-
-        }
-
-        #endregion
-
-        #region ClearContactList Command   
-
-        public Command TestCommand {
-            get;
-            private set;
-        }
-
+        /// <summary>
+        /// The TestCommandExecute
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/></param>
         private void TestCommandExecute(object obj)
         {
             try
             {
-                string de = "";
-                for (int i =0; i< ContactsSearch.Count;i++)
-                {
-                    Person t = ContactsSearch[i];
-                    t.IsChecked = false;
-                    t.Name = "Funziona?";
-                    NotifyPropertyChanged("ContactsSearch");
-                }
-                ContactsSelected.Clear();
-                NotifyPropertyChanged("ContactsSelected");
+                AddContactVM = new AddContactViewModel();
             }
             catch (System.Exception err)
             {
@@ -161,17 +212,20 @@ namespace Agenda.ViewModels
             }
         }
 
-        private bool CanTestCommandCommand(object obj)
-        {
-            return true;
+        #endregion
 
-            //if (ContactsSelected.Count > 0)
-            //{
-            //    return true;
-            //}
-            //return false;
+        #region ModelView
 
+        private AddContactViewModel addContactVM = null;
+        public AddContactViewModel AddContactVM {
+            get => addContactVM;
+            set {
+                addContactVM = value;
+                //OnPropertyChanged();
+                NotifyPropertyChanged();
+            }
         }
+
 
         #endregion
     }

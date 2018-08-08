@@ -1,27 +1,30 @@
-﻿<Window x:Class="Agenda.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:Agenda.ViewModels"
-        xmlns:local="clr-namespace:Agenda.View"
-        xmlns:conv="clr-namespace:Agenda.Assets.Convert"
-        xmlns:root="clr-namespace:Agenda"
-        mc:Ignorable="d"
-        Title="Google Contacts Wpf Demo" Height="600" Width="800">
+﻿<Window
+    x:Class="Agenda.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:Agenda.Assets.Convert"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Agenda.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:root="clr-namespace:Agenda"
+    xmlns:vm="clr-namespace:Agenda.ViewModels"
+    Title="Google Contacts Wpf Demo"
+    Width="800"
+    Height="600"
+    mc:Ignorable="d">
 
     <Window.DataContext>
-        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+        <vm:MainWindowViewModel />
     </Window.DataContext>
 
     <Window.Resources>
 
-        <conv:SearchBoxToColorConverter x:Key="SearchBoxToColorConv"></conv:SearchBoxToColorConverter>
-        <conv:ListToVisibilityConverter x:Key="ListToVisibilityConv"></conv:ListToVisibilityConverter>
+        <conv:SearchBoxToColorConverter x:Key="SearchBoxToColorConv" />
+        <conv:ListToVisibilityConverter x:Key="ListToVisibilityConv" />
 
-        <Style TargetType="{x:Type CheckBox}" x:Key="checkBox">
+        <Style x:Key="checkBox" TargetType="{x:Type CheckBox}">
 
-            <!-- This part changes the colors -->
+            <!--  This part changes the colors  -->
             <Setter Property="BorderBrush" Value="LightGray" />
             <Setter Property="BorderThickness" Value="3" />
             <Setter Property="Background" Value="LightGray" />
@@ -30,7 +33,7 @@
 
                 <Trigger Property="IsMouseOver" Value="True">
 
-                    <!-- This part is not changing the colors -->
+                    <!--  This part is not changing the colors  -->
                     <Setter Property="BorderThickness" Value="3" />
                     <Setter Property="Background" Value="Gray" />
                     <Setter Property="BorderBrush" Value="Gray" />
@@ -41,8 +44,8 @@
 
         </Style>
 
-        <Style TargetType="{x:Type Grid}" x:Key="GridRow">
-            <!-- This part changes the colors -->
+        <Style x:Key="GridRow" TargetType="{x:Type Grid}">
+            <!--  This part changes the colors  -->
             <Setter Property="Background" Value="White" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -50,6 +53,79 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!--<DataTemplate x:Key="PersonTemplate">
+            <Grid Style="{DynamicResource GridRow}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+        -->
+        <!--  Selected item  -->
+        <!--
+                <Border Background="Red" Width="0"></Border>
+
+        -->
+        <!--  CheckBox  -->
+        <!--  https://stackoverflow.com/questions/26681749/c-sharp-wpf-uncheck-checkboxes  -->
+        <!--  Style="{DynamicResource checkBox}"  -->
+        <!--
+                <CheckBox
+                                Grid.Column="1"
+                                Command="{Binding Path=DataContext.AddContactToListCommand,
+                                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}},
+                                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay
+                                }"
+                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
+                                IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+        -->
+        <!--  Icons  -->
+        <!--
+                <Border Grid.Column="2" Padding="8">
+                    <Border
+                                    Background="Orange"
+                                    Width="25"
+                                    CornerRadius="30">
+                        <TextBlock
+                                        Text="{Binding Initial}"
+                                        Foreground="Black"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                        </TextBlock>
+                    </Border>
+                </Border>
+
+        -->
+        <!--  Name  -->
+        <!--
+                <Border Grid.Column="3"
+                Padding="8 0 0 0">
+                    <TextBlock
+                Text="{Binding Name, Mode=TwoWay}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                    </TextBlock>
+                </Border>
+
+        -->
+        <!--  Mobile Phone  -->
+        <!--
+                <Border Grid.Column="4"
+                Padding="0 0 8 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                    <TextBlock
+                Text="{Binding Number}"></TextBlock>
+                </Border>
+            </Grid>
+        </DataTemplate>-->
 
     </Window.Resources>
 
@@ -61,150 +137,85 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <!--NavBar Menu icon -->
-        <StackPanel Grid.Column="0" Grid.Row="0"
-                    Grid.ColumnSpan="2" 
-                    Orientation="Horizontal" 
-                    Background="{StaticResource NavBarBackgroundBrush}">
+        <!--  NavBar Menu icon  -->
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Background="{StaticResource NavBarBackgroundBrush}"
+            Orientation="Horizontal">
 
             <ContentControl Content="{StaticResource IconMenu}" />
 
-            <TextBlock Foreground="{StaticResource NavBarForetextBrush}" VerticalAlignment="Center" FontFamily="Product Sans" FontSize="24" >Google Contatti</TextBlock>
+            <TextBlock
+                VerticalAlignment="Center"
+                FontFamily="Product Sans"
+                FontSize="24"
+                Foreground="{StaticResource NavBarForetextBrush}">
+                Google Contatti
+            </TextBlock>
 
         </StackPanel>
 
-        <!--NavBar Search Textbox -->
-        <StackPanel 
+        <!--  NavBar Search Textbox  -->
+        <StackPanel
             Grid.Column="1"
-            Orientation="Vertical" 
-            VerticalAlignment="Center"
+            Margin="10,0"
             HorizontalAlignment="Left"
-            Margin="10 0">
-
-            <!--Background="{Binding SearchText, Converter={StaticResource SearchBoxToColorConv}}"-->
-            <Border                      
-            Background="White"
-            BorderThickness="2"
             VerticalAlignment="Center"
-            CornerRadius="5"
-            Width="220">
+            Orientation="Vertical">
+
+            <!--  Background="{Binding SearchText, Converter={StaticResource SearchBoxToColorConv}}"  -->
+            <Border
+                Width="220"
+                VerticalAlignment="Center"
+                Background="White"
+                BorderThickness="2"
+                CornerRadius="5">
 
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <ContentControl Content="{StaticResource IconSearch}" />
                     <TextBox
-                    Name="txtNameToSearch" 
-                    Text="{Binding Path=SearchText,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Height="20"
-                    Width="200"
-                    BorderThickness="0"
-                    Style="{StaticResource SearchBoxStyle}"/>
+                        Name="txtNameToSearch"
+                        Width="200"
+                        Height="20"
+                        BorderThickness="0"
+                        Style="{StaticResource SearchBoxStyle}"
+                        Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </StackPanel>
             </Border>
-
-
-
-
-
         </StackPanel>
 
-        <!-- Content -->
-        <StackPanel Grid.Row="1"
-                    Grid.Column="1">
-            <ListBox  
-                HorizontalContentAlignment="Stretch"
-                Name="lstEmpData"     
-                ItemsSource="{Binding Path=ContactsSearch, Mode=TwoWay}"
-                SelectedItem="{Binding Person}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-
-                        <Grid Style="{DynamicResource GridRow}">
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <!--Selected item-->
-                            <Border Background="Red" Width="0"></Border>
+        <!--  Content  -->
+        <ListBox
+            Name="lstEmpData"
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding Path=ContactsSearch, Mode=TwoWay}"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            SelectedItem="{Binding Person}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:ContactListItemControl />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--  ItemTemplate="{StaticResource PersonTemplate}"  -->
+        <Button Command="{Binding TestCommand}" Content="Test" />
 
 
-                            <!--CheckBox-->
-                            <!--https://stackoverflow.com/questions/26681749/c-sharp-wpf-uncheck-checkboxes-->
-                            <!--Style="{DynamicResource checkBox}"-->
-                            <CheckBox 
-                                Grid.Column="1"
-                                Command="{Binding DataContext.AddContactToListCommand,
-                                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}},
-                                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay
-                                }"                    
-                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}, Mode=TwoWay}"                   
-                                IsChecked="{Binding Path=IsChecked, Mode=TwoWay}"                             
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-
-                            <!--Icons-->
-                            <Border Grid.Column="2" Padding="8">
-                                <Border 
-                                    Background="Orange"
-                                    Width="25"
-                                    CornerRadius="30">
-                                    <TextBlock 
-                                        Text="{Binding Initial}"
-                                        Foreground="Black"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center">
-                                    </TextBlock>
-                                </Border>
-                            </Border>
-
-                            <!--Name-->
-                            <Border Grid.Column="3"
-                Padding="8 0 0 0">
-                                <TextBlock 
-                Text="{Binding Name, Mode=TwoWay}"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
-                                </TextBlock>
-                            </Border>
-
-                            <!--Mobile Phone-->
-                            <Border Grid.Column="4"
-                Padding="0 0 8 0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
-                                <TextBlock 
-                Text="{Binding Number}"></TextBlock>
-                            </Border>
-
-                        </Grid>
-
-
-
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button Command="{Binding TestCommand}">Test</Button>
-            
-        </StackPanel>
-        
-        
-        
-        <!-- Select item -->
-        <!--Visibility="{Binding Path=ContactsSelected, Converter={StaticResource ListToVisibilityConv}}"-->
-        <StackPanel Grid.Row="0"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Background="{StaticResource NavBarSelectedItemBackgroundBrush}"
-                    Visibility="{Binding Path=ContactsSelected, Converter={StaticResource ListToVisibilityConv}}">
+        <!--  Select item  -->
+        <!--  Visibility="{Binding Path=ContactsSelected, Converter={StaticResource ListToVisibilityConv}}"  -->
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Background="{StaticResource NavBarSelectedItemBackgroundBrush}"
+            Visibility="{Binding Path=ContactsSelected, Converter={StaticResource ListToVisibilityConv}}">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -212,23 +223,22 @@
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Height="60"
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Center"
-                            Orientation="Horizontal" >
+                <StackPanel
+                    Height="60"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
 
-                    <Button 
+                    <Button
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Command="{Binding Path=ClearContactListCommand}"
                         Background="{DynamicResource NavBarSelectedItemBackgroundBrush}"
                         BorderThickness="0"
-                        >
+                        Command="{Binding Path=ClearContactListCommand}">
 
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
-                                <ContentControl
-                                Content="{StaticResource IconBack}"/>
+                                <ContentControl Content="{StaticResource IconBack}" />
                                 <Label>Indietro</Label>
                             </StackPanel>
                         </Button.Content>
@@ -236,15 +246,34 @@
                     </Button>
                 </StackPanel>
 
-                <StackPanel 
+                <StackPanel
                     Grid.Column="1"
-                    Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=ContactsSelected.Count}"></Label>
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="{Binding Path=ContactsSelected.Count}" />
                     <Label HorizontalAlignment="Left" VerticalAlignment="Center">contatto selezionato</Label>
                 </StackPanel>
 
             </Grid>
         </StackPanel>
+
+
+        <ContentControl
+            Grid.Row="3"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="{Binding AddContactVM}"
+            Visibility="Visible" />
+
+
+
+
+
     </Grid>
 
 </Window>

@@ -1,17 +1,17 @@
-﻿<Application x:Class="Agenda.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Agenda">
+﻿<Application
+    x:Class="Agenda.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Agenda">
     <Application.Resources>
-
         <ResourceDictionary x:Name="DictionaryApp">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Assets/ResourceDictionaries/Icons.xaml" />
                 <ResourceDictionary Source="Assets/ResourceDictionaries/Colors.xaml" />
                 <ResourceDictionary Source="Assets/ResourceDictionaries/TextBoxSearch.xaml" />
+                <ResourceDictionary Source="Assets/ResourceDictionaries/ListBoxDataTemplate.xaml" />
+                <ResourceDictionary Source="Assets/ResourceDictionaries/ViewDataTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
-        
     </Application.Resources>
 </Application>

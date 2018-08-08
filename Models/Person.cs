@@ -9,17 +9,18 @@ namespace Agenda.Models
     public class Person : ViewModels.Base.NotifyPropertyBase
     {
         private int id;
-        public int Id;
+        public int Id { get { return id; } set { id = value; } }
 
         private string name;
         public string Name {
 
             get {
-                return name;
+                return name;               
             }
 
             set {
                 name = value;
+                NotifyPropertyChanged();
             }
 
         }
@@ -33,6 +34,7 @@ namespace Agenda.Models
 
             set {
                 surname = value;
+                NotifyPropertyChanged();
             }
 
         }
@@ -54,6 +56,7 @@ namespace Agenda.Models
 
             set {
                 number = value;
+                NotifyPropertyChanged();
             }
 
         }
@@ -67,6 +70,7 @@ namespace Agenda.Models
 
             set {
                 color = value;
+                NotifyPropertyChanged();
             }
 
         }
