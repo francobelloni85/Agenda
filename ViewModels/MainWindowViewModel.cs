@@ -1,9 +1,11 @@
 ﻿namespace Agenda.ViewModels
 {
+    using Agenda.Enumerations;
     using Agenda.Models;
     using Agenda.ViewModels.Base;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Windows;
 
     /// <summary>
     /// Defines the <see cref="MainWindowViewModel" />
@@ -50,19 +52,10 @@
 
         public List<Person> Contacts { get; set; } = new List<Person>();
 
-        /// <summary>
-        /// Gets or sets the ContactsSearch
-        /// </summary>
         public ObservableCollection<Person> ContactsSearch { get; set; } = new ObservableCollection<Person>();
 
-        /// <summary>
-        /// Gets or sets the ContactsSelected
-        /// </summary>
         public ObservableCollection<Person> ContactsSelected { get; set; } = new ObservableCollection<Person>();
 
-        /// <summary>
-        /// Gets or sets the SearchText
-        /// </summary>
         public string SearchText {
             get { return searchText; }
             set {
@@ -72,19 +65,35 @@
             }
         }
 
-        /// <summary>
-        /// Gets the TestCommand
-        /// </summary>
         public Command TestCommand { get; private set; }
+
+        private InterfaceMode interfaceMode = InterfaceMode.ModelON;
+        public InterfaceMode AppStatus {
+            get {
+                return interfaceMode;
+            }
+            set{
+                this.interfaceMode = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private Person addPerson = new Person();
+        public Person AddPerson {
+
+            get { return addPerson; }
+
+            set {
+                addPerson = value;
+                NotifyPropertyChanged();
+            }
+
+        }
 
         #endregion
 
         #region Methods
 
-        /// <summary>
-        /// The AddContactToListCommandExecute
-        /// </summary>
-        /// <param name="obj">The obj<see cref="object"/></param>
         private void AddContactToListCommandExecute(object obj)
         {
             Person t = (Person)obj;
@@ -100,21 +109,12 @@
             ClearContactListCommand.RaiseCanExecuteChange();
         }
 
-        /// <summary>
-        /// The CanAddContactToListCommandCommand
-        /// </summary>
-        /// <param name="obj">The obj<see cref="object"/></param>
-        /// <returns>The <see cref="bool"/></returns>
         private bool CanAddContactToListCommandCommand(object obj)
         {
             return true;
         }
 
-        /// <summary>
-        /// The CanClearContactListCommand
-        /// </summary>
-        /// <param name="obj">The obj<see cref="object"/></param>
-        /// <returns>The <see cref="bool"/></returns>
+        
         private bool CanClearContactListCommand(object obj)
         {
             if (ContactsSelected.Count > 0)
@@ -123,21 +123,12 @@
             }
             return false;
         }
-
-        /// <summary>
-        /// The CanTestCommandCommand
-        /// </summary>
-        /// <param name="obj">The obj<see cref="object"/></param>
-        /// <returns>The <see cref="bool"/></returns>
+                
         private bool CanTestCommandCommand(object obj)
         {
             return true;
         }
 
-        /// <summary>
-        /// The ClearContactListExecute
-        /// </summary>
-        /// <param name="obj">The obj<see cref="object"/></param>
         private void ClearContactListExecute(object obj)
         {
             try
@@ -156,9 +147,6 @@
             }
         }
 
-        /// <summary>
-        /// The LoadContacts
-        /// </summary>
         private void LoadContacts()
         {
 
@@ -205,6 +193,11 @@
             try
             {
                 AddContactVM = new AddContactViewModel();
+
+                AppStatus = InterfaceMode.ModelON;
+                NotifyPropertyChanged("AppStatus");
+
+
             }
             catch (System.Exception err)
             {

@@ -25,7 +25,8 @@
     <Color x:Key="LightGrey">#f7f7f7</Color>
     <SolidColorBrush x:Key="LightGreyBrush" Color="{StaticResource LightGrey}" />
 
-
+    <Color x:Key="ButtonBorderTextBox">#2a56c6</Color>
+    <SolidColorBrush x:Key="ButtonBorderTextBoxBrush" Color="{StaticResource ButtonBorderTextBox}" />
 
 
 </ResourceDictionary>

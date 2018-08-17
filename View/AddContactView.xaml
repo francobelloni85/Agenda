@@ -3,12 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Agenda.View"
+    xmlns:local="clr-namespace:Agenda.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="White"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <local:Person />
+    </UserControl.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -29,6 +34,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -45,32 +51,101 @@
                 </Viewbox>
             </StackPanel>
 
-            <TextBox
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                Text="Name" />
+            <!--  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  -->
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Label HorizontalAlignment="Left" Content="Name" />
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <TextBox
+                        x:Name="blockToUnderline"
+                        DataContext="AddPerson"
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource NameBoxStyle}" />
+
+                    <Rectangle
+                        x:Name="Border_name"
+                        Width="{Binding ActualWidth, ElementName=blockToUnderline}"
+                        DockPanel.Dock="Top"
+                        Fill="{StaticResource ButtonBorderTextBoxBrush}">
+
+                        <Rectangle.Style>
+                            <Style TargetType="{x:Type Rectangle}">
+                                <Setter Property="Height" Value="0" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsFocused, ElementName=blockToUnderline}" Value="True">
+                                        <Setter Property="Height" Value="1" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+
+                        <Rectangle.Triggers>
+                            <!--  Animates the rectangle's opacity.  -->
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            AutoReverse="True"
+                                            RepeatBehavior="0:0:2.5"
+                                            Storyboard.TargetName="Border_name"
+                                            Storyboard.TargetProperty="Width"
+                                            From="1.0"
+                                            To="{Binding ActualWidth, ElementName=blockToUnderline}"
+                                            Duration="0:0:2.5" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Rectangle.Triggers>
+
+                    </Rectangle>
+
+                </StackPanel>
+
+
+
+            </Grid>
+
+
+
+
+
+
+
+
 
             <TextBox
-                Grid.Column="2"
-                VerticalAlignment="Center"
-                Text="Surname" />
+                Name="txtSurname"
+                Grid.Column="3"
+                DataContext="AddPerson"
+                Style="{StaticResource SurnameBoxStyle}"
+                Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+            <TextBox
+                Name="txtCompany"
+                Grid.Row="1"
+                Grid.Column="1"
+                DataContext="AddPerson"
+                Style="{StaticResource CompanyBoxStyle}"
+                Text="{Binding Path=Company, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
 
             <TextBox
                 Grid.Row="1"
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                Text="Company" />
-
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="2"
+                Grid.Column="3"
                 VerticalAlignment="Center"
                 Text="Job" />
 
             <TextBox
                 Grid.Row="2"
                 Grid.Column="1"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 VerticalAlignment="Center"
                 Text="Mail" />
 

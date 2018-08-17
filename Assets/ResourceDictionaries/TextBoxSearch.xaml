@@ -30,4 +30,96 @@
         </Style.Triggers>
     </Style>
 
+
+    <Style x:Key="DefaultTextBoxControlStyle" TargetType="TextBox">
+        <Setter Property="Height" Value="20" />
+    </Style>
+
+    <!--  Name  -->
+    <Style
+        x:Key="NameBoxStyle"
+        BasedOn="{StaticResource DefaultTextBoxControlStyle}"
+        TargetType="TextBox">
+        <Style.Resources>
+            <VisualBrush
+                x:Key="AddContact_Name"
+                AlignmentX="Left"
+                AlignmentY="Center"
+                Stretch="None">
+                <VisualBrush.Visual>
+                    <Label Content="Name" Foreground="{StaticResource SearchBoxTextNotSelectedBrush}" />
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger xmlns:sys="clr-namespace:System;assembly=mscorlib" Property="Text" Value="{x:Static sys:String.Empty}">
+                <Setter Property="Background" Value="{StaticResource AddContact_Name}" />
+            </Trigger>
+            <Trigger Property="Text" Value="{x:Null}">
+                <Setter Property="Background" Value="{StaticResource AddContact_Name}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  Surname  -->
+    <Style
+        x:Key="SurnameBoxStyle"
+        BasedOn="{StaticResource DefaultTextBoxControlStyle}"
+        TargetType="TextBox">
+        <Style.Resources>
+            <VisualBrush
+                x:Key="AddContact_Surname"
+                AlignmentX="Left"
+                AlignmentY="Center"
+                Stretch="None">
+                <VisualBrush.Visual>
+                    <Label Content="Surname" Foreground="{StaticResource SearchBoxTextNotSelectedBrush}" />
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger xmlns:sys="clr-namespace:System;assembly=mscorlib" Property="Text" Value="{x:Static sys:String.Empty}">
+                <Setter Property="Background" Value="{StaticResource AddContact_Surname}" />
+            </Trigger>
+            <Trigger Property="Text" Value="{x:Null}">
+                <Setter Property="Background" Value="{StaticResource AddContact_Surname}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  Company  -->
+    <Style
+        x:Key="CompanyBoxStyle"
+        BasedOn="{StaticResource DefaultTextBoxControlStyle}"
+        TargetType="TextBox">
+        <Style.Resources>
+            <VisualBrush
+                x:Key="AddContact_Company"
+                AlignmentX="Left"
+                AlignmentY="Center"
+                Stretch="None">
+                <VisualBrush.Visual>
+                    <Label Content="Company" Foreground="{StaticResource SearchBoxTextNotSelectedBrush}" />
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger xmlns:sys="clr-namespace:System;assembly=mscorlib" Property="Text" Value="{x:Static sys:String.Empty}">
+                <Setter Property="Background" Value="{StaticResource AddContact_Company}" />
+            </Trigger>
+            <Trigger Property="Text" Value="{x:Null}">
+                <Setter Property="Background" Value="{StaticResource AddContact_Company}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

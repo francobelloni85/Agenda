@@ -4,13 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="clr-namespace:Agenda.Assets.Convert"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enu="clr-namespace:Agenda.Enumerations"
     xmlns:local="clr-namespace:Agenda.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:root="clr-namespace:Agenda"
     xmlns:vm="clr-namespace:Agenda.ViewModels"
-    Title="Google Contacts Wpf Demo"
-    Width="800"
-    Height="600"
+    Title="PlaybackWaveform"
+    Width="1366"
+    Height="768"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
     mc:Ignorable="d">
 
     <Window.DataContext>
@@ -21,6 +24,8 @@
 
         <conv:SearchBoxToColorConverter x:Key="SearchBoxToColorConv" />
         <conv:ListToVisibilityConverter x:Key="ListToVisibilityConv" />
+        <conv:MathDimensionConverter x:Key="MathDimensionConv" />
+        <conv:InterfaceModeToVisibilityConverter x:Key="InterfaceModeToVisibilityConv" />
 
         <Style x:Key="checkBox" TargetType="{x:Type CheckBox}">
 
@@ -54,86 +59,15 @@
             </Style.Triggers>
         </Style>
 
-        <!--<DataTemplate x:Key="PersonTemplate">
-            <Grid Style="{DynamicResource GridRow}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-        -->
-        <!--  Selected item  -->
-        <!--
-                <Border Background="Red" Width="0"></Border>
-
-        -->
-        <!--  CheckBox  -->
-        <!--  https://stackoverflow.com/questions/26681749/c-sharp-wpf-uncheck-checkboxes  -->
-        <!--  Style="{DynamicResource checkBox}"  -->
-        <!--
-                <CheckBox
-                                Grid.Column="1"
-                                Command="{Binding Path=DataContext.AddContactToListCommand,
-                                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}},
-                                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay
-                                }"
-                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-                                IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-
-        -->
-        <!--  Icons  -->
-        <!--
-                <Border Grid.Column="2" Padding="8">
-                    <Border
-                                    Background="Orange"
-                                    Width="25"
-                                    CornerRadius="30">
-                        <TextBlock
-                                        Text="{Binding Initial}"
-                                        Foreground="Black"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center">
-                        </TextBlock>
-                    </Border>
-                </Border>
-
-        -->
-        <!--  Name  -->
-        <!--
-                <Border Grid.Column="3"
-                Padding="8 0 0 0">
-                    <TextBlock
-                Text="{Binding Name, Mode=TwoWay}"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
-                    </TextBlock>
-                </Border>
-
-        -->
-        <!--  Mobile Phone  -->
-        <!--
-                <Border Grid.Column="4"
-                Padding="0 0 8 0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
-                    <TextBlock
-                Text="{Binding Number}"></TextBlock>
-                </Border>
-            </Grid>
-        </DataTemplate>-->
-
     </Window.Resources>
 
-    <Grid>
+    <Grid Name="mainGrid">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="1*" />
@@ -204,8 +138,12 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
         <!--  ItemTemplate="{StaticResource PersonTemplate}"  -->
-        <Button Command="{Binding TestCommand}" Content="Test" />
+        <Button
+            Grid.Row="1"
+            Command="{Binding TestCommand}"
+            Content="Test" />
 
 
         <!--  Select item  -->
@@ -261,19 +199,31 @@
             </Grid>
         </StackPanel>
 
+        <Canvas>
+            <Rectangle
+                Name="NoclickBackground"
+                Width="{Binding Path=ActualWidth, ElementName=mainGrid}"
+                Height="{Binding Path=ActualHeight, ElementName=mainGrid}"
+                Panel.ZIndex="2"
+                Fill="#e0e0e0"
+                IsHitTestVisible="False"
+                Opacity="0.4"
+                Visibility="{Binding AppStatus, Converter={StaticResource InterfaceModeToVisibilityConv}, ConverterParameter={x:Static enu:InterfaceComponents.Rectangle}}" />
+        </Canvas>
 
         <ContentControl
-            Grid.Row="3"
-            Grid.Column="1"
+            Name="ModalControl"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Width="{Binding Path=ActualWidth, ElementName=mainGrid, Converter={StaticResource MathDimensionConv}}"
+            Height="{Binding Path=ActualHeight, ElementName=mainGrid, Converter={StaticResource MathDimensionConv}}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            Panel.ZIndex="3"
             Content="{Binding AddContactVM}"
-            Visibility="Visible" />
-
-
-
-
-
+            Visibility="{Binding AppStatus, Converter={StaticResource InterfaceModeToVisibilityConv}, ConverterParameter={x:Static enu:InterfaceComponents.ModalBox}}" />
     </Grid>
 
 </Window>

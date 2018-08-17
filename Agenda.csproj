@@ -62,9 +62,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assets\Convert\InterfaceModeToVisibilityConverter.cs" />
     <Compile Include="Assets\Convert\ListToVisibilityConverter.cs" />
+    <Compile Include="Assets\Convert\MathDimensionConverter.cs" />
     <Compile Include="Assets\Convert\PersonToBoolConverter.cs" />
     <Compile Include="Assets\Convert\SearchBoxToColorConverter.cs" />
+    <Compile Include="Commons\Enumerations.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SearchBox.cs" />
     <Compile Include="ViewModels\AddContactViewModel.cs" />

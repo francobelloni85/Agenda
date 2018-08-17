@@ -89,6 +89,24 @@ namespace Agenda.Models
             }
         }
 
+
+        private string company;
+        public string Company {
+
+            get {
+                return company;
+            }
+
+            set {
+                company = value;
+                NotifyPropertyChanged();
+            }
+
+        }
+
+
+
+
     }
     
 
