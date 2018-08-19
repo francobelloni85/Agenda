@@ -25,12 +25,5 @@ namespace Agenda
             InitializeComponent();
             this.FontFamily = new FontFamily("Product Sans");
         }
-
-
-
-
-
-
-
     }
 }

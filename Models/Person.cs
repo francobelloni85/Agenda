@@ -9,13 +9,16 @@ namespace Agenda.Models
     public class Person : ViewModels.Base.NotifyPropertyBase
     {
         private int id;
-        public int Id { get { return id; } set { id = value; } }
+        public int Id {
+            get { return id; }
+            set { id = value; }
+        }
 
-        private string name;
+        private string name = string.Empty;
         public string Name {
 
             get {
-                return name;               
+                return name;
             }
 
             set {
@@ -25,7 +28,7 @@ namespace Agenda.Models
 
         }
 
-        private string surname;
+        private string surname = string.Empty;
         public string Surname {
 
             get {
@@ -47,7 +50,7 @@ namespace Agenda.Models
             get { return this.name.Substring(0, 1).ToUpper(); }
         }
 
-        private string number;
+        private string number = string.Empty;
         public string Number {
 
             get {
@@ -61,7 +64,7 @@ namespace Agenda.Models
 
         }
 
-        private string color;
+        private string color = string.Empty;
         public string Color {
 
             get {
@@ -75,7 +78,7 @@ namespace Agenda.Models
 
         }
 
-        private bool isChecked;
+        private bool isChecked = false;
         public bool IsChecked {
             get {
                 return isChecked;
@@ -89,8 +92,7 @@ namespace Agenda.Models
             }
         }
 
-
-        private string company;
+        private string company = string.Empty;
         public string Company {
 
             get {
@@ -108,6 +110,6 @@ namespace Agenda.Models
 
 
     }
-    
+
 
 }

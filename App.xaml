@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Assets/ResourceDictionaries/TextBoxSearch.xaml" />
                 <ResourceDictionary Source="Assets/ResourceDictionaries/ListBoxDataTemplate.xaml" />
                 <ResourceDictionary Source="Assets/ResourceDictionaries/ViewDataTemplate.xaml" />
+                <ResourceDictionary Source="Assets/ResourceDictionaries/Animations.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

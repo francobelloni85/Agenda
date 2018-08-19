@@ -5,7 +5,6 @@
     using Agenda.ViewModels.Base;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Windows;
 
     /// <summary>
     /// Defines the <see cref="MainWindowViewModel" />
@@ -13,6 +12,12 @@
     public class MainWindowViewModel : NotifyPropertyBase
     {
         #region Fields
+
+        private AddContactViewModel addContactVM = null;
+
+        private Person addPerson = new Person() { Id = 11, Name = "Test", Surname = "TestSurname", Company = "Company", IsChecked = false, Number = "2313", Color = "sss" };
+
+        private InterfaceMode interfaceMode = InterfaceMode.ModelON;
 
         /// <summary>
         /// Defines the searchText
@@ -40,14 +45,37 @@
 
         #region Properties
 
-        /// <summary>
-        /// Gets or sets the AddContactToListCommand
-        /// </summary>
         public Command AddContactToListCommand { get; set; }
 
-        /// <summary>
-        /// Gets the ClearContactListCommand
-        /// </summary>
+        public AddContactViewModel AddContactVM {
+            get => addContactVM;
+            set {
+                addContactVM = value;
+                //OnPropertyChanged();
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Person AddPerson {
+
+            get { return addPerson; }
+
+            set {
+                addPerson = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public InterfaceMode AppStatus {
+            get {
+                return interfaceMode;
+            }
+            set {
+                this.interfaceMode = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public Command ClearContactListCommand { get; private set; }
 
         public List<Person> Contacts { get; set; } = new List<Person>();
@@ -66,29 +94,6 @@
         }
 
         public Command TestCommand { get; private set; }
-
-        private InterfaceMode interfaceMode = InterfaceMode.ModelON;
-        public InterfaceMode AppStatus {
-            get {
-                return interfaceMode;
-            }
-            set{
-                this.interfaceMode = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private Person addPerson = new Person();
-        public Person AddPerson {
-
-            get { return addPerson; }
-
-            set {
-                addPerson = value;
-                NotifyPropertyChanged();
-            }
-
-        }
 
         #endregion
 
@@ -114,7 +119,6 @@
             return true;
         }
 
-        
         private bool CanClearContactListCommand(object obj)
         {
             if (ContactsSelected.Count > 0)
@@ -123,7 +127,7 @@
             }
             return false;
         }
-                
+
         private bool CanTestCommandCommand(object obj)
         {
             return true;
@@ -168,9 +172,6 @@
         }
 
         // http://www.devcurry.com/2010/07/filter-data-in-wpf-listbox.html
-        /// <summary>
-        /// The SearchResult
-        /// </summary>
         private void SearchResult()
         {
             ContactsSearch.Clear();
@@ -184,41 +185,19 @@
             }
         }
 
-        /// <summary>
-        /// The TestCommandExecute
-        /// </summary>
-        /// <param name="obj">The obj<see cref="object"/></param>
         private void TestCommandExecute(object obj)
         {
             try
             {
-                AddContactVM = new AddContactViewModel();
-
+                AddContactVM = new AddContactViewModel(this);
                 AppStatus = InterfaceMode.ModelON;
                 NotifyPropertyChanged("AppStatus");
-
-
             }
             catch (System.Exception err)
             {
                 string e = "";
             }
         }
-
-        #endregion
-
-        #region ModelView
-
-        private AddContactViewModel addContactVM = null;
-        public AddContactViewModel AddContactVM {
-            get => addContactVM;
-            set {
-                addContactVM = value;
-                //OnPropertyChanged();
-                NotifyPropertyChanged();
-            }
-        }
-
 
         #endregion
     }
