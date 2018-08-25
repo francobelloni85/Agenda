@@ -71,7 +71,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <!--  NavBar Menu icon  -->
@@ -139,12 +138,42 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!--  ItemTemplate="{StaticResource PersonTemplate}"  -->
         <Button
             Grid.Row="1"
-            Command="{Binding TestCommand}"
-            Content="Test" />
-
+            Grid.Column="1"
+            Width="50"
+            Height="50"
+            Margin="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding AddNewContactCommand}">
+            <Button.Content>
+                <Viewbox Width="48" Height="48">
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Fill="White" />
+                    </Canvas>
+                </Viewbox>
+            </Button.Content>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Stroke="Black" StrokeThickness="0">
+                            <Ellipse.Fill>
+                                <RadialGradientBrush>
+                                    <GradientStop Offset="1" Color="#e91e63" />
+                                    <RadialGradientBrush.Transform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleY="0.50" />
+                                        </TransformGroup>
+                                    </RadialGradientBrush.Transform>
+                                </RadialGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
         <!--  Select item  -->
         <!--  Visibility="{Binding Path=ContactsSelected, Converter={StaticResource ListToVisibilityConv}}"  -->
@@ -206,8 +235,8 @@
                 Height="{Binding Path=ActualHeight, ElementName=mainGrid}"
                 Panel.ZIndex="2"
                 Fill="#e0e0e0"
-                IsHitTestVisible="False"
-                Opacity="0.4"
+                IsHitTestVisible="True"
+                Opacity="0.7"
                 Visibility="{Binding AppStatus, Converter={StaticResource InterfaceModeToVisibilityConv}, ConverterParameter={x:Static enu:InterfaceComponents.Rectangle}}" />
         </Canvas>
 

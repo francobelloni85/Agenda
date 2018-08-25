@@ -1,93 +1,157 @@
-﻿using NLog;
+﻿using Agenda.Models;
+using Agenda.ViewModels.Base;
+using NLog;
 using NLog.Fluent;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media.Animation;
 
 namespace Agenda.ViewModels
 {
-    public class AddContactViewModel : MainWindowViewModel
+    public class AddContactViewModel : NotifyPropertyBase
     {
         #region Fields
 
+        private MainWindowViewModel ParentVM { get; set; }
+
         private static Logger log = LogManager.GetCurrentClassLogger();
-
-        public string status = "1";
-        private String addNewContact_surname1 = "Giorgio";
-        private string testString = "test";
-
 
         public Models.Person AddPerson = new Models.Person();
 
-
-        public Boolean IsLoggedIn {
-            get;
-            set;
-        } = true;
-
+        public bool AnimationHideName { get; set; } = false;
+        public bool AnimationLostFocusName { get; set; } = false;
 
         public string Name {
             get {
                 return AddPerson.Name;
             }
             set {
-                
                 AddPerson.Name = value;
-                this.mWindow.StartAnimation();
+                if (value.Length == 0) {
+                    AnimationLostFocusName = true;
+                    NotifyPropertyChanged("AnimationLostFocusName");
+                    AnimationLostFocusName = false;
+                }
 
+                
+            }
+        }
+        public string Surname {
 
+            get {
+                return AddPerson.Surname;
+            }
 
+            set {
+                AddPerson.Surname = value;
+            }
+
+        }
+        public string Company {
+
+            get {
+                return AddPerson.Company;
+            }
+
+            set {
+                AddPerson.Company = value;
+            }
+
+        }
+        public string Job {
+
+            get {
+                return AddPerson.Job;
+            }
+
+            set {
+                AddPerson.Job = value;
+            }
+
+        }
+        public string Mail {
+
+            get {
+                return AddPerson.Mail;
+            }
+
+            set {
+                AddPerson.Mail = value;
+            }
+
+        }
+        public string Number {
+            get {
+                return AddPerson.Number;
+            }
+            set {
+                AddPerson.Number = value;
             }
         }
 
+        public Command SaveCommand { get; set; }
+        
+        public ObservableCollection<County> CountryList { get; set; } = new ObservableCollection<County>();
+        
+        private County countySelected;
+        public County CountySelected {
+            get {
+                return countySelected;
+            }
+            set {
+                countySelected = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         #region Constructors
 
-        public AddContactViewModel()
-        {
-            status = "2";
-        }
-
-        public View.AddContactView mWindow;
+        //public AddContactViewModel(){
+        //    LoadCommands();
+        //}
 
         public AddContactViewModel(MainWindowViewModel parentVM)
         {
             try
             {                
                 ParentVM = parentVM;
+                LoadCommands();
+
+                CountryList.Add(new County() { Name = "Italy", CountryCode = "ITA", Number = "+39" });
+                CountryList.Add(new County() { Name = "China", CountryCode = "CHN", Number = "+22" });
+                CountryList.Add(new County() { Name = "UK", CountryCode = "ENG", Number = "+12" });
+                
+                CountySelected = CountryList[0];
+                NotifyPropertyChanged("CountySelected");
+                NotifyPropertyChanged("CountryList");
+
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message);
+                log.Error(ex.Message);
             }
+        }
+
+        private void LoadCommands() {
+            SaveCommand = new Command(SaveCommandExecute, CanSaveCommand);
         }
 
         #endregion
 
-        #region Properties
-
-        public String AddNewContact_surname1 {
-            get {
-                return addNewContact_surname1;
-            }
-
-            set {
-                this.addNewContact_surname1 = value;
-                //BeginStoryboard sb = this.FindResource("SurnameAnimationTop") as BeginStoryboard;
-                //sb.Storyboard.Begin();
-                //var view = Application.Current.FindResource("AddContactVM") as DataTemplate;
-                //var control = new ContentControl { Content = AddContactVM, ContentTemplate = view };
-            }
+        private void SaveCommandExecute(object obj) {
+            ParentVM.AppStatus = Enumerations.InterfaceMode.Default;
+            ParentVM.ContactsSearch.Add(AddPerson);
+            NotifyPropertyChanged("AppStatus");
         }
 
-        public string TestString {
-            get { return testString; }
-            set { testString = value; }
+        private bool CanSaveCommand(object obj) {
+            return true;
         }
 
-        private MainWindowViewModel ParentVM { get; set; }
 
-        #endregion
+
     }
 }

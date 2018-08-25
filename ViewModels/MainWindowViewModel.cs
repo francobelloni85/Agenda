@@ -14,9 +14,7 @@
         #region Fields
 
         private AddContactViewModel addContactVM = null;
-
-        private Person addPerson = new Person() { Id = 11, Name = "Test", Surname = "TestSurname", Company = "Company", IsChecked = false, Number = "2313", Color = "sss" };
-
+                
         private InterfaceMode interfaceMode = InterfaceMode.ModelON;
 
         /// <summary>
@@ -36,9 +34,11 @@
 
             AddContactToListCommand = new Command(AddContactToListCommandExecute, CanAddContactToListCommandCommand);
             ClearContactListCommand = new Command(ClearContactListExecute, CanClearContactListCommand);
-            TestCommand = new Command(TestCommandExecute, CanTestCommandCommand);
+            AddNewContactCommand = new Command(AddNewContactExecute, CanAddNewContactCommand);
 
             LoadContacts();
+
+            AppStatus = InterfaceMode.Default;
         }
 
         #endregion
@@ -55,17 +55,7 @@
                 NotifyPropertyChanged();
             }
         }
-
-        public Person AddPerson {
-
-            get { return addPerson; }
-
-            set {
-                addPerson = value;
-                NotifyPropertyChanged();
-            }
-        }
-
+        
         public InterfaceMode AppStatus {
             get {
                 return interfaceMode;
@@ -93,7 +83,7 @@
             }
         }
 
-        public Command TestCommand { get; private set; }
+        public Command AddNewContactCommand { get; private set; }
 
         #endregion
 
@@ -128,7 +118,7 @@
             return false;
         }
 
-        private bool CanTestCommandCommand(object obj)
+        private bool CanAddNewContactCommand(object obj)
         {
             return true;
         }
@@ -185,7 +175,7 @@
             }
         }
 
-        private void TestCommandExecute(object obj)
+        private void AddNewContactExecute(object obj)
         {
             try
             {

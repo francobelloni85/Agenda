@@ -70,6 +70,9 @@
     <Compile Include="Assets\Convert\PersonToBoolConverter.cs" />
     <Compile Include="Assets\Convert\SearchBoxToColorConverter.cs" />
     <Compile Include="Commons\Enumerations.cs" />
+    <Compile Include="Commons\WatermarkAdorner.cs" />
+    <Compile Include="Commons\WatermarkService.cs" />
+    <Compile Include="Models\County.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SearchBox.cs" />
     <Compile Include="ViewModels\AddContactViewModel.cs" />
@@ -177,6 +180,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Varie.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Links.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\CHN.png" />
+    <Resource Include="Assets\Images\ENG.png" />
+    <Resource Include="Assets\Images\images.png" />
+    <Resource Include="Assets\Images\ITA.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

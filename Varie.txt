@@ -99,3 +99,53 @@ CheckBox
   </userSettings>
   
 </configuration>
+
+
+
+
+<EventTrigger RoutedEvent="Grid.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoveMeBaby" Storyboard.TargetProperty="Y">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.05" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TheObject" Storyboard.TargetProperty="Opacity">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:1.55" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="TextBox.GotFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoveMeBaby" Storyboard.TargetProperty="Y">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="-20" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TheObject" Storyboard.TargetProperty="Opacity">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:1.55" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="TextBox.LostFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoveMeBaby" Storyboard.TargetProperty="Y">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TheObject" Storyboard.TargetProperty="Opacity">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:1.55" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+
+
+<i:Interaction.Triggers>
+                    
+                    
+                    <i:DataTrigger Binding="{Binding IsLoggedIn}" Value="true">
+                        <i:ControlStoryboardAction x:Name="FadeOutOnLogin" Storyboard="{StaticResource LoginFadeOut}"/>
+                    </i:DataTrigger>
+                </i:Interaction.Triggers>

@@ -1,0 +1,25 @@
+﻿TextBox Placeholder
+https://stackoverflow.com/questions/833943/watermark-hint-text-placeholder-textbox
+
+DataTrigger from Microsoft.Expression.Interactions
+https://sshumakov.com/2012/12/08/how-to-use-datatrigger-from-microsoft-expression-interactions/
+[dll] https://stackoverflow.com/questions/43047840/visual-studio-2017-what-happened-to-expression-interactions
+[dll] https://stackoverflow.com/questions/17750081/can-we-use-iinteraction-triggers-in-wpf-mvvm-not-in-silverlight
+
+Trigger a Storyboard on ViewModel changes
+http://mark.mymonster.nl/2010/12/14/trigger-a-storyboard-on-viewmodel-changes
+or
+https://stackoverflow.com/questions/1122177/what-is-the-best-way-to-start-an-animation-when-a-bound-value-changes
+https://stackoverflow.com/questions/29559325/bind-animations-to-viewmodel-property
+trick
+https://stackoverflow.com/questions/48056474/how-to-call-method-defined-in-view-from-view-model
+https://stackoverflow.com/questions/37876885/call-eventtrigger-routedevent-in-class-mainwindow-xaml-cs
+
+
+da chiedere 
+Multi condition event trigger
+https://social.msdn.microsoft.com/Forums/vstudio/en-US/765d8255-3017-441f-b0c1-1e51ba1bdc62/multi-condition-event-trigger?forum=wpf
+
+
+
+

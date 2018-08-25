@@ -92,6 +92,20 @@ namespace Agenda.Models
             }
         }
 
+        private string mail = string.Empty;
+        public string Mail {
+
+            get {
+                return mail;
+            }
+
+            set {
+                mail = value;
+                NotifyPropertyChanged();
+            }
+
+        }
+
         private string company = string.Empty;
         public string Company {
 
@@ -106,7 +120,22 @@ namespace Agenda.Models
 
         }
 
+        private string job = string.Empty;
+        public string Job {
 
+            get {
+                return job;
+            }
+
+            set {
+                job = value;
+                NotifyPropertyChanged();
+            }
+
+        }
+
+
+        
 
 
     }

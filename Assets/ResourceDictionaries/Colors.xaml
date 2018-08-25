@@ -28,5 +28,7 @@
     <Color x:Key="ButtonBorderTextBox">#2a56c6</Color>
     <SolidColorBrush x:Key="ButtonBorderTextBoxBrush" Color="{StaticResource ButtonBorderTextBox}" />
 
+    <Color x:Key="TemplateBlue">#2a56c6</Color>
+    <SolidColorBrush x:Key="TemplateBlueBrush" Color="{StaticResource TemplateBlue}" />
 
 </ResourceDictionary>

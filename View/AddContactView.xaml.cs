@@ -27,7 +27,7 @@ namespace Agenda.View
         public AddContactView()
         {
             InitializeComponent();
-            this.DataContext = new ViewModels.AddContactViewModel();
+            //this.DataContext = new ViewModels.AddContactViewModel();
         }
 
         public void StartAnimation() {
