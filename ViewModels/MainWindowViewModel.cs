@@ -35,6 +35,7 @@
             AddContactToListCommand = new Command(AddContactToListCommandExecute, CanAddContactToListCommandCommand);
             ClearContactListCommand = new Command(ClearContactListExecute, CanClearContactListCommand);
             AddNewContactCommand = new Command(AddNewContactExecute, CanAddNewContactCommand);
+            EditContactCommand = new Command(EditContactCommandExecute, CanEditContactCommand);
 
             LoadContacts();
 
@@ -84,6 +85,8 @@
         }
 
         public Command AddNewContactCommand { get; private set; }
+
+        public Command EditContactCommand { get; private set; }
 
         #endregion
 
@@ -188,6 +191,23 @@
                 string e = "";
             }
         }
+
+        private void EditContactCommandExecute(object obj)
+        {
+
+            Person personToEdit = (Person)obj;
+            AddContactVM = new AddContactViewModel(this, personToEdit);
+            AppStatus = InterfaceMode.ModelON;
+            NotifyPropertyChanged("AppStatus");
+
+        }
+
+        private bool CanEditContactCommand(object obj)
+        {
+            return true;
+        }
+        
+
 
         #endregion
     }

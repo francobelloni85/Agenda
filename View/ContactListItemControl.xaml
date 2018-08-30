@@ -59,6 +59,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!--  Selected item  -->
@@ -105,6 +106,20 @@
             VerticalAlignment="Center">
             <TextBlock Text="{Binding Number}" />
         </Border>
+
+        <Button
+            Grid.Column="5"
+            Background="White"
+            BorderBrush="White"
+            BorderThickness="0"
+            Command="{Binding Path=DataContext.EditContactCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, UpdateSourceTrigger=Default}"
+            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}">
+            <Button.Content>
+                <ContentControl Content="{StaticResource IconPen}" />
+            </Button.Content>
+        </Button>
+
+
     </Grid>
 </UserControl>
 

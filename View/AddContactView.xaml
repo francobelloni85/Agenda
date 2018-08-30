@@ -248,10 +248,9 @@
                     <ComboBox
                         Name="cmbCountry"
                         Width="60"
-                        Background="White"
-                        BorderBrush="White"
                         ItemsSource="{Binding CountryList}"
-                        SelectedItem="{Binding CountySelected, Mode=TwoWay}">
+                        SelectedItem="{Binding CountySelected, Mode=TwoWay}"
+                        Style="{DynamicResource ComboBoxWhite}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -267,7 +266,10 @@
                 </StackPanel>
 
                 <AdornerDecorator>
-                    <TextBox Width="250" Text="{Binding Number}">
+                    <TextBox
+                        Width="250"
+                        Height="20"
+                        Text="{Binding Number}">
                         <controls:WatermarkService.Watermark>
                             <TextBlock>Phone</TextBlock>
                         </controls:WatermarkService.Watermark>
@@ -288,10 +290,14 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Button Content="ADD MORE" Style="{StaticResource ButtonsModal}" />
+            <Button
+                Command="{Binding CancelCommand}"
+                Content="ADD MORE"
+                Style="{StaticResource ButtonsModal}" />
 
             <Button
                 Grid.Column="2"
+                Command="{Binding CancelCommand}"
                 Content="CANCEL"
                 Style="{StaticResource ButtonsModal}" />
 
