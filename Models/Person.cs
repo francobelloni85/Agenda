@@ -46,8 +46,23 @@ namespace Agenda.Models
             get { return this.name + " " + this.surname; }
         }
 
-        public string Initial {
-            get { return this.name.Substring(0, 1).ToUpper(); }
+        public char Initial {
+
+            get {
+                string t = name.Substring(0, 1).ToUpper();
+                return t[0];
+            }
+        }
+
+        public char letterPlaceHolder = ' ';
+        public char LetterPlaceHolder {
+            get {
+                return letterPlaceHolder;
+            }
+            set {
+                letterPlaceHolder = value;
+                NotifyPropertyChanged();
+            }
         }
 
         private string number = string.Empty;
@@ -134,8 +149,6 @@ namespace Agenda.Models
 
         }
 
-
-        
 
 
     }

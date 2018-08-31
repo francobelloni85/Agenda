@@ -65,7 +65,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -128,9 +128,11 @@
             Grid.Row="1"
             Grid.Column="1"
             HorizontalContentAlignment="Stretch"
+            BorderThickness="0"
             ItemsSource="{Binding Path=ContactsSearch, Mode=TwoWay}"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
-            SelectedItem="{Binding Person}">
+            SelectedItem="{Binding Person}"
+            Style="{DynamicResource ListBoxContacts}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:ContactListItemControl />
@@ -253,6 +255,7 @@
             Panel.ZIndex="3"
             Content="{Binding AddContactVM}"
             Visibility="{Binding AppStatus, Converter={StaticResource InterfaceModeToVisibilityConv}, ConverterParameter={x:Static enu:InterfaceComponents.ModalBox}}" />
+
     </Grid>
 
 </Window>

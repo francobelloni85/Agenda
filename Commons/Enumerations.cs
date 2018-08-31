@@ -14,7 +14,10 @@ namespace Agenda.Enumerations
 
     public enum InterfaceComponents {
        Grid, ModalBox, Rectangle
-    }   
+    }
+
+
+    public enum Language { it, en }
 
 
 }

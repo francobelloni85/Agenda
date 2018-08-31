@@ -79,13 +79,21 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+
         <!--  Header  -->
+        <Border Background="{StaticResource LightGreyBrush}" />
         <StackPanel
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
+            Panel.ZIndex="1"
             Background="{StaticResource LightGreyBrush}">
-            <Label Background="{StaticResource LightGreyBrush}" FontSize="20">Crea Contatto</Label>
+            <Label
+                Background="{StaticResource LightGreyBrush}"
+                Content="{Binding HeaderTitle}"
+                FontSize="20" />
         </StackPanel>
+
+
 
         <!--  Table textboxs  -->
         <Grid Grid.Row="1">

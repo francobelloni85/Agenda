@@ -71,11 +71,13 @@
     <Compile Include="Assets\Convert\PersonToBoolConverter.cs" />
     <Compile Include="Assets\Convert\SearchBoxToColorConverter.cs" />
     <Compile Include="Commons\Enumerations.cs" />
+    <Compile Include="Commons\Utility.cs" />
     <Compile Include="Commons\WatermarkAdorner.cs" />
     <Compile Include="Commons\WatermarkService.cs" />
     <Compile Include="Models\County.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SearchBox.cs" />
+    <Compile Include="Models\Strings.cs" />
     <Compile Include="ViewModels\AddContactViewModel.cs" />
     <Compile Include="ViewModels\Base\Command.cs" />
     <Compile Include="ViewModels\ContactListItemViewModel.cs" />

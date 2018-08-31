@@ -3,6 +3,7 @@
     using Agenda.Enumerations;
     using Agenda.Models;
     using Agenda.ViewModels.Base;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
@@ -12,6 +13,8 @@
     public class MainWindowViewModel : NotifyPropertyBase
     {
         #region Fields
+
+        public Strings GetDescriptions = new Strings(Language.en);
 
         private AddContactViewModel addContactVM = null;
                 
@@ -31,7 +34,6 @@
         /// </summary>
         public MainWindowViewModel()
         {
-
             AddContactToListCommand = new Command(AddContactToListCommandExecute, CanAddContactToListCommandCommand);
             ClearContactListCommand = new Command(ClearContactListExecute, CanClearContactListCommand);
             AddNewContactCommand = new Command(AddNewContactExecute, CanAddNewContactCommand);
@@ -157,9 +159,17 @@
             Contacts.Add(new Person() { Id = 1008, Name = "Pankaj", Surname = "Oliviero", Color = "00dd11", Number = "+39 345.2142124" });
             Contacts.Add(new Person() { Id = 1009, Name = "Kaustubh", Surname = "Vanoni", Color = "00dd11", Number = "+39 345.2414241" });
             Contacts.Add(new Person() { Id = 1010, Name = "Mohan", Surname = "Atabiano", Color = "00dd11", Number = "+39 345.1241241" });
+            Contacts.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+
+            char tempChar = ' ';
 
             foreach (Person t in Contacts)
             {
+                if (t.Initial != tempChar) {
+                    t.LetterPlaceHolder = t.Initial;
+                    tempChar = t.Initial;
+                }
                 ContactsSearch.Add(t);
             }
         }
@@ -211,4 +221,6 @@
 
         #endregion
     }
+
+    
 }

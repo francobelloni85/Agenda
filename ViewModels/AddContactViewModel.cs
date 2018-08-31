@@ -3,6 +3,7 @@ using Agenda.ViewModels.Base;
 using NLog;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Agenda.ViewModels
 {
@@ -16,6 +17,8 @@ namespace Agenda.ViewModels
 
         private County countySelected;
 
+        public string HeaderTitle { get; set; }
+
         #endregion
 
         #region Constructors
@@ -27,6 +30,9 @@ namespace Agenda.ViewModels
                 ParentVM = parentVM;
                 LoadCommands();
 
+                MainWindowViewModel mainWin = Application.Current.MainWindow.DataContext as MainWindowViewModel;               
+                HeaderTitle = mainWin.GetDescriptions.AddNewContact_title;
+                
                 CountryList.Add(new County() { Name = "Italy", CountryCode = "ITA", Number = "+39" });
                 CountryList.Add(new County() { Name = "China", CountryCode = "CHN", Number = "+22" });
                 CountryList.Add(new County() { Name = "UK", CountryCode = "ENG", Number = "+12" });
@@ -48,6 +54,10 @@ namespace Agenda.ViewModels
             {
 
                 AddPerson = person;
+
+                object dc = Application.Current.MainWindow.DataContext;
+                MainWindowViewModel t = (MainWindowViewModel)dc;
+                HeaderTitle = t.GetDescriptions.EditContact_title;
 
                 ParentVM = parentVM;
                 LoadCommands();
